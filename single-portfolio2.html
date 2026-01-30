@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ButterflyAI.io - Portfolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #1E1E1E;
+        padding: 30px;
+        line-height: 1.6;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .container {
+        margin: 0 auto;
+        position: relative;
+      }
+
+      /* Close Button */
+      .x-close {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 50px;
+        height: 50px;
+        background: white;
+        border: 1px solid #000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .x-close:hover {
+        transform: scale(1.1) rotate(90deg);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .x-close img {
+        width: 24px;
+        height: 24px;
+      }
+
+      /* Header Section */
+      .header {
+        display: flex;
+        align-items: stretch;
+        gap: 20px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        margin-top: 0;
+      }
+
+      .logo-container {
+        width: 120px;
+        height: 120px;
+        background: white;
+        border: 1px solid #000;
+        border-radius: 15px;
+        padding: 15px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .title-container {
+        flex: 1;
+        min-height: 120px;
+        background: #13b3ed;
+        border: 1px solid #000;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .title-container span {
+        font-size: 26px;
+        font-weight: 700;
+        color: white;
+        text-align: center;
+      }
+
+      /* Scroll Animation Setup */
+      .section {
+        display: grid;
+        gap: 20px;
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s ease-out;
+      }
+
+      .section.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-2col {
+        grid-template-columns: 3fr 1fr;
+      }
+
+      .section-2col-reverse {
+        grid-template-columns: 1fr 3fr;
+      }
+
+      .content-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      /* Content Boxes */
+      .content-box {
+        background: #0088cc;
+        border: 1px solid #000;
+        border-radius: 15px;
+        padding: 25px;
+        color: white;
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .content-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .content-title{
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .content-box h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 15px 0 8px 0;
+      }
+
+      .content-box p,
+      .content-box li {
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
+
+      .content-box ul {
+        margin-left: 20px;
+        list-style: disc;
+      }
+
+      /* Image Boxes */
+      .image-box {
+        background: white;
+        border: 1px solid #000;
+        border-radius: 15px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .image-box:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.5s ease;
+      }
+
+      .image-box:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Specific height adjustments */
+      .img-medium {
+        min-height: 250px;
+      }
+
+      .img-tall {
+        min-height: 400px;
+      }
+
+      .img-small {
+        min-height: 200px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 968px) {
+        .section-2col,
+        .section-2col-reverse {
+          grid-template-columns: 1fr;
+        }
+
+        .title-container {
+          height: auto;
+          min-height: 80px;
+        }
+
+        .title-container span {
+          font-size: 20px;
+        }
+
+        .content-title{
+          font-size: 24px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        body {
+           padding: 15px;
+          padding-top: 60px;
+        }
+
+        /* Close button mobile style */
+        .x-close {
+          position: absolute;
+          top: -50px;
+          right: 50%;
+          transform: translateX(50%);
+          width: 45px;
+          height: 45px;
+        }
+
+        .x-close:hover {
+          transform: translateX(50%) scale(1.1) rotate(90deg);
+        }
+
+        .x-close img {
+          width: 20px;
+          height: 20px;
+        }
+
+        .header {
+          margin-top: 0;
+        }
+
+        .logo-container {
+          width: 90px;
+          height: 90px;
+        }
+
+        .title-container span {
+          font-size: 16px;
+        }
+
+        .title-container {
+          padding: 5px;
+        }
+
+        .content-box {
+          padding: 15px;
+        }
+
+        .content-title {
+          font-size: 22px;
+        }
+
+        .content-box h3 {
+          font-size: 20px;
+        }
+
+        .content-box p,
+        .content-box li {
+          font-size: 18px;
+        }
+
+        .reverse-col {
+          display: flex;
+          flex-direction: column-reverse;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Close Button -->
+      <a class="x-close" href="index.html#portfolio">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M18 6L6 18M6 6L18 18"
+            stroke="#000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="logo-container">
+          <img
+            src="./demo-images/portfoliotwo/portfolio2.png"
+            alt="ButterflyAI Logo"
+          />
+        </div>
+        <div class="title-container">
+          <span
+            >ButterflyAI.io - Automated Demand Marketing Workflow Platform</span
+          >
+        </div>
+      </div>
+
+      <!-- Executive Summary Section -->
+      <div class="section section-2col reverse-col scroll-animate">
+        <div class="content-container">
+          <div class="content-box">
+            <h2 class="content-title">Executive Summary</h2>
+            <p>
+              ButterflyAI.io is a leading B2B marketing company specializing in
+              demand generation and high-performance campaign execution. To
+              overcome operational inefficiencies and scale effectively, we
+              developed a secure, automated workflow platform that streamlined
+              key marketing processes and strengthened data integrity.
+            </p>
+          </div>
+        </div>
+        <div class="image-box img-medium">
+          <img
+            src="./demo-images/portfoliotwo/executive-summary.png"
+            alt="Boxes"
+          />
+        </div>
+      </div>
+
+      <!-- Background Section -->
+      <div class="section section-2col-reverse scroll-animate">
+        <div class="image-box img-medium">
+          <img src="./demo-images/portfoliotwo/background.png" alt="Light" />
+        </div>
+        <div class="content-container">
+          <div class="content-box">
+            <h2 class="content-title" >Background</h2>
+            <p>
+              ButterflyAI.io helps global businesses generate, validate, and
+              nurture high-quality leads. However, their reliance on manual
+              tasks and multiple third-party tools created delays, security
+              risks, and scalability challenges - all affecting campaign
+              outcomes and operational speed.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenges Section -->
+      <div class="section section-2col reverse-col scroll-animate">
+        <div class="content-container">
+          <div class="content-box">
+            <h2 class="content-title">Challenges</h2>
+
+            <h3>Data Security Risks:</h3>
+            <ul>
+              <li>
+                Handling sensitive client data through third-party systems posed
+                a significant risk of breaches and unauthorized access.
+              </li>
+            </ul>
+
+            <h3>Manual Efforts:</h3>
+            <ul>
+              <li>
+                Tasks such as email validation, inbox verification, LinkedIn
+                profile fetching, and more required extensive manual
+                intervention, resulting in increased operational costs and time
+                consumption.
+              </li>
+            </ul>
+
+            <h3>Scalability Issues:</h3>
+            <ul>
+              <li>
+                The existing setup struggled to scale with their growing client
+                base and increasing demand for campaigns.
+              </li>
+            </ul>
+
+            <h3>Error Prone Processes:</h3>
+            <ul>
+              <li>
+                The manual nature of their workflow led to higher chances of
+                errors, impacting campaign quality and effectiveness.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="image-box img-tall">
+          <img
+            src="./demo-images/portfoliotwo/challenges.png"
+            alt="Rock Climbing"
+          />
+        </div>
+      </div>
+
+      <!-- Solution Section -->
+      <div class="section section-2col-reverse scroll-animate">
+        <div class="image-box img-tall">
+          <img
+            src="./demo-images/portfoliotwo/sollution.png"
+            alt="Light Bulb"
+          />
+        </div>
+        <div class="content-container">
+          <div class="content-box">
+            <h2 class="content-title">Solution</h2>
+
+            <h3>End-to-End Workflow Automation:</h3>
+            <ul>
+              <li>
+                Automated email validation and inbox verification to ensure
+                campaign communications reach the right audience.
+              </li>
+              <li>
+                LinkedIn profile fetching and data enrichment to streamline lead
+                generation and targeting efforts.
+              </li>
+            </ul>
+
+            <h3>Enhanced Data Security:</h3>
+            <ul>
+              <li>
+                Implementation of robust security protocols, ensuring data
+                integrity and compliance with industry standards.
+              </li>
+            </ul>
+
+            <h3>Customizable Dashboards:</h3>
+            <ul>
+              <li>
+                User-friendly dashboards that provide real-time insights into
+                campaign performance and lead data.
+              </li>
+            </ul>
+
+            <h3>Scalability and Flexibility:</h3>
+            <ul>
+              <li>
+                A modular system designed to scale with ButterflyAI.io's growth,
+                accommodating new features and workflows seamlessly.
+              </li>
+            </ul>
+
+            <h3>Chat Integration:</h3>
+            <ul>
+              <li>
+                Created a chat module where agents can send leads to each other
+                rather than using 3rd party application which are accessible but
+                inside the network.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results and Impact Section -->
+      <div class="section section-2col reverse-col scroll-animate">
+        <div class="content-container">
+          <div class="content-box">
+            <h2 class="content-title">Results and Impact</h2>
+
+            <h3>Increased Efficiency:</h3>
+            <ul>
+              <li>
+                Manual effort decreased by over 70%, allowing the team to focus
+                on strategy and innovation.
+              </li>
+            </ul>
+
+            <h3>Improved Campaign Results:</h3>
+            <ul>
+              <li>
+                Enhanced data accuracy led to a 40% increase in email
+                deliverability and higher engagement rates.
+              </li>
+            </ul>
+
+            <h3>Cost Savings:</h3>
+            <ul>
+              <li>
+                Significant reduction in operational costs through streamlined
+                processes and reduced dependency on third-party tools.
+              </li>
+            </ul>
+
+            <h3>Strengthened Data Security:</h3>
+            <ul>
+              <li>
+                Comprehensive data protection measures ensured client trust and
+                compliance with data privacy regulations.
+              </li>
+            </ul>
+
+            <h3>Scalability:</h3>
+            <ul>
+              <li>
+                The platform's scalability enabled ButterflyAI.io to onboard new
+                clients and expand their services effortlessly.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="image-box img-tall">
+          <img
+            src="./demo-images/portfoliotwo/requestandimpact.png"
+            alt="Dartboard"
+          />
+        </div>
+      </div>
+
+      <!-- Conclusion Section -->
+      <div class="section section-2col-reverse scroll-animate">
+        <div class="image-box img-small">
+          <img src="./demo-images/portfoliotwo/conclusion.png" alt="Gavel" />
+        </div>
+        <div class="content-container">
+          <div class="content-box">
+            <h2 class="content-title">Conclusion</h2>
+            <p>
+              The transformation empowered ButterflyAI.io to automate their
+              demand marketing workflow, improve accuracy, enhance security, and
+              scale efficiently—setting new standards for campaign execution and
+              client success.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add("animate");
+              }, index * 120); // stagger delay
+            }
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: "0px 0px -20px 0px",
+        }
+      );
+
+      document.querySelectorAll(".scroll-animate").forEach((section) => {
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
